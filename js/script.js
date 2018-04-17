@@ -3,7 +3,7 @@
  */
 let reverb1 = new Tone.Freeverb(0.9, 10000).receive("reverb").toMaster();
 let reverb2 = new Tone.Freeverb(0.4, 10000).receive("reverb").toMaster();
-let reverb3 = new Tone.Freeverb(0.9, 1000).receive("reverb").toMaster();
+let reverb3 = new Tone.Freeverb(0.9, 10000).receive("reverb").toMaster();
 
 /**
  * Drums
@@ -27,11 +27,11 @@ let drums505 = new Tone.Sampler(
 ).toMaster();
 
 let drum505Part = new Tone.Loop(
-  function(time, note) {
-    drums505.triggerAttackRelease(note, "2n", time);
+  function(time) {
+    drums505.triggerAttackRelease("A2", "2n", time);
   },
-  ["A2", ["A0", ["A0", "A0"]], null, [null, "A0", "A1", "A1"]]
-).start(0);
+ "2n"
+).start("2:1");
 
 // Kick
 let kick = new Tone.MembraneSynth({
@@ -51,7 +51,7 @@ let kickPart = new Tone.Loop(function(time) {
  *  PIANO
  */
 let piano = new Tone.PolySynth(4, Tone.Synth, {
-  volume: -20,
+  volume: -30,
   oscillator: {
     partials: [1, 2, 1]
   },
@@ -83,7 +83,7 @@ let pianoPart = new Tone.Part(
     ["0:11", dChord],
     ["0:11:2", aChordAlt]
   ]
-).start(0);
+).start("4:0");
 
 pianoPart.loop = true;
 pianoPart.loopEnd = "6m";
@@ -91,16 +91,16 @@ pianoPart.humanize = true;
 
 // Snare
 let glitchPerc = new Tone.PluckSynth({
-  volume: -30
+  volume: -25
 }).connect(reverb1);
 
 let glitchPercPart = new Tone.Loop(function(time, note) {
   glitchPerc.triggerAttack("C2", time);
-}, "3n").start(0);
+}, "3n").start("6:0");
 
 /*
-		 BASS
-		 */
+BASS
+*/
 var bass = new Tone.MonoSynth({
   volume: -25,
   envelope: {
@@ -133,7 +133,7 @@ var bell = new Tone.MetalSynth({
   envelope: {
     decay: 0.4
   },
-  volume: -60
+  volume: -40
 }).toMaster();
 
 var bellPart = new Tone.Sequence(
@@ -143,7 +143,7 @@ var bellPart = new Tone.Sequence(
   },
   [300, null, 200, null, 200, 200, null, 200, null, 200, null, 200],
   "16t"
-).start(0);
+).start("6:0");
 
 // let osc = new Tone.OmniOscillator();
 // osc.frequency.value = "D4";
